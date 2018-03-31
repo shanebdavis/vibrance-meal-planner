@@ -1,0 +1,14 @@
+import &StandardImport
+
+&ArtSuiteApp.initArtSuiteClient
+  title:         :Vibrance.Meal.Planner
+  MainComponent:
+    class CanvasComponent extends Component
+
+      render: ->
+        CanvasElement
+          draw: #eee
+
+          TextElement
+            padding: 10
+            text: "" 'Hello world!' - Vibrance.Meal.Planner
