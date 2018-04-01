@@ -1,0 +1,30 @@
+import &StandardImport
+
+class MealPlan extends FluxComponent
+  @subscriptions "mealPlan"
+
+  render: ->
+    Element
+      childrenLayout: "column"
+
+      Element
+        size: ww:1, h: 50
+        draw: VibrancePalette.green
+        childrenLayout: :row
+
+        &Button
+          text: "home"
+          action: @props.home
+
+        TextElement
+          TextStyles.mediumText
+          fontSize: 32
+          align: .5
+          text: "Meal Plan"
+          color: :white
+
+      &Button
+        text: "add recipe"
+
+      array mealPlanLine from @mealPlan
+        &RecipeLine mealPlanLine

@@ -1,1 +1,3 @@
-&ArtSuite
+&ArtSuite.merge
+  &ArtSuite
+  &VibranceStyle

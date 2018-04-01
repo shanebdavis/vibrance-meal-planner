@@ -1,0 +1,12 @@
+import &StandardImport
+
+class MealPlan extends ApplicationState
+
+  @stateFields
+    myMealPlan1: []
+      peopleCount: 2
+      recipeId: :vibrance1
+
+    myMealPlan2: []
+      {}  peopleCount: 3  recipeId: :vibrance1
+      {}  peopleCount: 3  recipeId: :vibrance2

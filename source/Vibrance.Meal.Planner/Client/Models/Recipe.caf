@@ -1,0 +1,19 @@
+import &StandardImport
+
+class Recipe extends ApplicationState
+
+  @stateFields
+    vibrance1:
+      title: "" All Hail Kale
+      peopleCount: 3
+      ingredients:
+        {} quanitity: 1 unit: :clove type: :garlic
+        {} quanitity: 1 unit: :bag type: :kale
+        {} quanitity: 2 type: :tomatoes
+
+    vibrance2:
+      title: "" Rock Hard Pancakes
+      peopleCount: 5
+      ingredients:
+        {} quanitity: 1 unit: :lb type: :rocks
+        {} quanitity: 1 unit: :squeeze type: :charmin

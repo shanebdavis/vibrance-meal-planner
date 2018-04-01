@@ -3,4 +3,5 @@
 
 module.exports = (require 'neptune-namespaces').addNamespace 'Vibrance.Meal.Planner', class Planner extends Neptune.PackageNamespace
   @version: require('../../package.json').version
-require './Client/namespace'
+require './Client/namespace';
+require './VibranceStyle/namespace'

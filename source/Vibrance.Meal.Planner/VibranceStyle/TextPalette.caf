@@ -1,0 +1,17 @@
+import &ArtSuite
+
+class TextPalette extends HotStyleProps
+  @black:
+    primary:          rgbColor "#000000d2"
+    secondary:        rgbColor "#0008"
+    tertiary:         rgbColor "#0005"
+    barely:           rgbColor "#0001"
+    disabled:         rgbColor "#0004"
+    opaqueSecondary:  rgbColor "#777"
+
+  @white:
+    primary:          rgbColor "#fffd"
+    secondary:        rgbColor "#fff8"
+    tertiary:         rgbColor "#fff5"
+    disabled:         rgbColor "#fff4"
+    opaqueSecondary:  rgbColor "#888"

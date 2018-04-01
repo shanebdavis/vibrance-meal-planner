@@ -2,3 +2,4 @@
 # file: Vibrance.Meal.Planner/Client/namespace.coffee
 
 module.exports = (require '../namespace').addNamespace('Client', class Client extends Neptune.PackageNamespace)
+require './Models/namespace'

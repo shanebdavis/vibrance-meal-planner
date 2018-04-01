@@ -3,5 +3,12 @@
 
 module.exports = require './namespace'
 module.exports
+.includeInNamespace require './Client'
 .addModules
-  Main: require './Main'
+  App:        require './App'       
+  Button:     require './Button'    
+  HomePage:   require './HomePage'  
+  Main:       require './Main'      
+  MealPlan:   require './MealPlan'  
+  RecipeLine: require './RecipeLine'
+require './Models'

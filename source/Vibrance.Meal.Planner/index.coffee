@@ -6,3 +6,4 @@ module.exports
 .addModules
   StandardImport: require './StandardImport'
 require './Client'
+require './VibranceStyle'

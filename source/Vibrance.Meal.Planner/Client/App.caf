@@ -1,0 +1,16 @@
+import &StandardImport
+
+class App extends FluxComponent
+
+  @stateFields
+    selectedMealPlanId: null
+
+  render: ->
+    Element
+      draw: :white
+      if @selectedMealPlanId
+        &MealPlan
+          mealPlanId: @selectedMealPlanId
+          home: @clearSelectedMealPlanId
+      else
+        &HomePage {@setSelectedMealPlanId}

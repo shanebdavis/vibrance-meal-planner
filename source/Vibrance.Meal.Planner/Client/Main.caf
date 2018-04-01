@@ -7,8 +7,4 @@ import &StandardImport
 
       render: ->
         CanvasElement
-          draw: #eee
-
-          TextElement
-            padding: 10
-            text: "" 'Hello world!' - Vibrance.Meal.Planner
+          &App()
