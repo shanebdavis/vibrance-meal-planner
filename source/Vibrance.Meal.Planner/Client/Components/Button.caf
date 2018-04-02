@@ -6,12 +6,12 @@ class Button extends PointerActionsMixin Component
     &ButtonWrapper
       @props
       size: ww:1, h: (ps, cs) -> max ViewLayout.buttonSize, cs.y
+      childrenLayout: "row"
+      childrenAlignment: "centerLeft"
       backgroundColor: VibrancePalette.yellow.withAlpha .5
       hoverColor: VibrancePalette.yellow
       actionColor: VibrancePalette.green
 
-      childrenLayout: "row"
-      childrenAlignment: "centerLeft"
 
       TextElement
         TextStyles.mediumText
@@ -19,6 +19,7 @@ class Button extends PointerActionsMixin Component
         padding:
           h: ViewLayout.buttonSize / 2
           v: ViewLayout.gridSize
+        maxLines: 3
         color: TextPalette.black.secondary
         align: :centerLeft
         text: @props.text

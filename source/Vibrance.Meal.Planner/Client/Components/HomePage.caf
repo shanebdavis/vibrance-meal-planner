@@ -8,7 +8,7 @@ class HomePage extends FluxComponent
       childrenLayout: "column"
 
       &Banner
-        title: "Vibrance Meal Planner"
+        title: "Vibrance Meal Planner v#{&package.version}"
 
       array mealPlan, mealPlanId in @mealPlan
         &Selectable

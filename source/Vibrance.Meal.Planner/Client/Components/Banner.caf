@@ -10,8 +10,7 @@ class Banner extends FluxComponent
       draw: VibrancePalette.green
 
       TextElement
-        TextStyles.mediumText
-        fontSize: 32
+        TextStyles.largeText
         align: .5
         text: title
         color: :white
