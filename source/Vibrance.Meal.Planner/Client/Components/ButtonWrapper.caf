@@ -15,13 +15,13 @@ class ButtonWrapper extends PointerActionsMixin Component
     {buttonSize} = ViewLayout
 
     Element
-      size:     size ? ww: 1 h: buttonSize
+      size:     ww: 1 h: buttonSize
       cursor:   :pointer
       on:       @buttonHandlers
 
       draw:
         padding:            backgroundPadding ? 2
-        rectangle: radius:  backgroundRadius  ? buttonSize
+        rectangle: radius:  backgroundRadius  ? buttonSize / 2
         color: switch
           when @pointerIsDown then actionColor
           when @hover then hoverColor
@@ -30,4 +30,5 @@ class ButtonWrapper extends PointerActionsMixin Component
       animators:
         draw: true
 
+      objectWithout @props, "children"
       @props.children

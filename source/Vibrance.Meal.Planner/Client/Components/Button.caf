@@ -5,13 +5,20 @@ class Button extends PointerActionsMixin Component
   render: ->
     &ButtonWrapper
       @props
+      size: ww:1, h: (ps, cs) -> max ViewLayout.buttonSize, cs.y
       backgroundColor: VibrancePalette.yellow.withAlpha .5
       hoverColor: VibrancePalette.yellow
       actionColor: VibrancePalette.green
 
+      childrenLayout: "row"
+      childrenAlignment: "centerLeft"
+
       TextElement
         TextStyles.mediumText
-        padding: h: ViewLayout.buttonSize / 2
+        size: :parentWidthChildrenHeight
+        padding:
+          h: ViewLayout.buttonSize / 2
+          v: ViewLayout.gridSize
         color: TextPalette.black.secondary
         align: :centerLeft
         text: @props.text

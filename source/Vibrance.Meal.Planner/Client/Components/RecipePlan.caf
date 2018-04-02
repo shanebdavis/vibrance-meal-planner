@@ -29,11 +29,12 @@ class RecipePlan extends FluxComponent
 
       @recipe && Element
         childrenLayout: :row
+        childrenAlignment: :centerLeft
         size: :parentWidthChildrenHeight
 
         &IconButton
           icon: :triangleRight
-          angle: if @showDetails then Math.PI / 2 else 0
+          iconAngle: if @showDetails then Math.PI / 2 else 0
           action: @toggleShowDetails
 
         &Selectable
@@ -44,7 +45,7 @@ class RecipePlan extends FluxComponent
           TextStyles.mediumText
           padding: h: ViewLayout.gridSize
           size: :parentHeightChildrenWidth
-          text: pluralize servings, "serving"
+          text: servings # pluralize servings, "serving"
           align: .5
 
         &IconButton
