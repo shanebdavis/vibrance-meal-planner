@@ -8490,7 +8490,7 @@ Caf.defMod(module, () => {
                 size: "childrenSize",
                 location: "centerCenter",
                 axis: "centerCenter",
-                angle: (cafTemp = this.props.angle) != null ? cafTemp : 0,
+                angle: (cafTemp = this.props.iconAngle) != null ? cafTemp : 0,
                 animators: "angle"
               })
             );
@@ -12190,7 +12190,8 @@ Caf.defMod(module, () => {
       "TextElement",
       "TextStyles",
       "ViewLayout",
-      "TextPalette"
+      "TextPalette",
+      "max"
     ],
     [global, __webpack_require__(11)],
     (
@@ -12200,7 +12201,8 @@ Caf.defMod(module, () => {
       TextElement,
       TextStyles,
       ViewLayout,
-      TextPalette
+      TextPalette,
+      max
     ) => {
       let Button;
       return (Button = Caf.defClass(
@@ -12210,12 +12212,24 @@ Caf.defMod(module, () => {
             return __webpack_require__(64)(
               this.props,
               {
+                size: {
+                  ww: 1,
+                  h: (ps, cs) => {
+                    return max(ViewLayout.buttonSize, cs.y);
+                  }
+                },
                 backgroundColor: VibrancePalette.yellow.withAlpha(0.5),
                 hoverColor: VibrancePalette.yellow,
-                actionColor: VibrancePalette.green
+                actionColor: VibrancePalette.green,
+                childrenLayout: "row",
+                childrenAlignment: "centerLeft"
               },
               TextElement(TextStyles.mediumText, {
-                padding: { h: ViewLayout.buttonSize / 2 },
+                size: "parentWidthChildrenHeight",
+                padding: {
+                  h: ViewLayout.buttonSize / 2,
+                  v: ViewLayout.gridSize
+                },
                 color: TextPalette.black.secondary,
                 align: "centerLeft",
                 text: this.props.text
@@ -13963,7 +13977,8 @@ Caf.defMod(module, () => {
       "VibrancePalette",
       "merge",
       "ViewLayout",
-      "Element"
+      "Element",
+      "objectWithout"
     ],
     [global, __webpack_require__(11)],
     (
@@ -13973,7 +13988,8 @@ Caf.defMod(module, () => {
       VibrancePalette,
       merge,
       ViewLayout,
-      Element
+      Element,
+      objectWithout
     ) => {
       let ButtonWrapper;
       return (ButtonWrapper = Caf.defClass(
@@ -14016,14 +14032,16 @@ Caf.defMod(module, () => {
             ({ buttonSize } = ViewLayout);
             return Element(
               {
-                size: size != null ? size : { ww: 1, h: buttonSize },
+                size: { ww: 1, h: buttonSize },
                 cursor: "pointer",
                 on: this.buttonHandlers,
                 draw: {
                   padding: backgroundPadding != null ? backgroundPadding : 2,
                   rectangle: {
                     radius:
-                      backgroundRadius != null ? backgroundRadius : buttonSize
+                      backgroundRadius != null
+                        ? backgroundRadius
+                        : buttonSize / 2
                   },
                   color: (() => {
                     switch (false) {
@@ -14038,6 +14056,7 @@ Caf.defMod(module, () => {
                 },
                 animators: { draw: true }
               },
+              objectWithout(this.props, "children"),
               this.props.children
             );
           };
@@ -14061,25 +14080,25 @@ Caf.defMod(module, () => {
     [
       "PointerActionsMixin",
       "Component",
-      "Element",
-      "ViewLayout",
       "TextElement",
       "String",
       "Icons",
+      "ViewLayout",
       "TextPalette",
-      "TextStyles"
+      "TextStyles",
+      "max"
     ],
     [global, __webpack_require__(11)],
     (
       PointerActionsMixin,
       Component,
-      Element,
-      ViewLayout,
       TextElement,
       String,
       Icons,
+      ViewLayout,
       TextPalette,
-      TextStyles
+      TextStyles,
+      max
     ) => {
       let Selectable;
       return (Selectable = Caf.defClass(
@@ -14090,24 +14109,31 @@ Caf.defMod(module, () => {
             ({ icon, text } = this.props);
             return __webpack_require__(64)(
               this.props,
-              { backgroundRadius: 4 },
-              Element(
-                {
-                  childrenLayout: "row",
-                  padding: { h: ViewLayout.buttonSize / 2 }
+              {
+                backgroundRadius: 4,
+                size: {
+                  ww: 1,
+                  h: (ps, cs) => {
+                    return max(ViewLayout.buttonSize, cs.y);
+                  }
                 },
-                icon &&
-                  TextElement(Caf.is(icon, String) ? Icons[icon] : icon, {
-                    size: ViewLayout.buttonSize,
-                    align: "centerCenter",
-                    color: TextPalette.black.primary
-                  }),
-                TextElement(TextStyles.mediumText, {
-                  color: TextPalette.black.primary,
-                  align: "centerLeft",
-                  text: this.props.text
-                })
-              )
+                childrenLayout: "row",
+                childrenAlignment: "centerLeft"
+              },
+              icon &&
+                TextElement(Caf.is(icon, String) ? Icons[icon] : icon, {
+                  size: ViewLayout.buttonSize,
+                  align: "centerCenter",
+                  color: TextPalette.black.primary
+                }),
+              TextElement(TextStyles.mediumText, {
+                padding: { v: ViewLayout.gridSize },
+                color: TextPalette.black.primary,
+                size: "childrenSizeMaxParentWidth",
+                maxLines: 3,
+                align: "centerLeft",
+                text: this.props.text
+              })
             );
           };
         }
@@ -28790,7 +28816,6 @@ Caf.defMod(module, () => {
       "Math",
       "TextElement",
       "TextStyles",
-      "pluralize",
       "rect"
     ],
     [global, __webpack_require__(11)],
@@ -28802,7 +28827,6 @@ Caf.defMod(module, () => {
       Math,
       TextElement,
       TextStyles,
-      pluralize,
       rect
     ) => {
       let RecipePlan, RecipePlanWrapper;
@@ -28840,11 +28864,12 @@ Caf.defMod(module, () => {
                   Element(
                     {
                       childrenLayout: "row",
+                      childrenAlignment: "centerLeft",
                       size: "parentWidthChildrenHeight"
                     },
                     __webpack_require__(34)({
                       icon: "triangleRight",
-                      angle: this.showDetails ? Math.PI / 2 : 0,
+                      iconAngle: this.showDetails ? Math.PI / 2 : 0,
                       action: this.toggleShowDetails
                     }),
                     __webpack_require__(65)({
@@ -28854,7 +28879,7 @@ Caf.defMod(module, () => {
                     TextElement(TextStyles.mediumText, {
                       padding: { h: ViewLayout.gridSize },
                       size: "parentHeightChildrenWidth",
-                      text: pluralize(servings, "serving"),
+                      text: servings,
                       align: 0.5
                     }),
                     __webpack_require__(34)({
@@ -75133,7 +75158,7 @@ module.exports = {"2.16.840.1.101.3.4.1.1":"aes-128-ecb","2.16.840.1.101.3.4.1.2
 /* 597 */
 /***/ (function(module, exports) {
 
-module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-suite-clientApp":"git://github.com/imikimi/art-suite-clientApp","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Vibrance.Meal.Planner","license":"ISC","name":"vibrance-meal-planner","scripts":{"build":"webpack --progress","start":"webpack-dev-server --hot --inline --progress","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress"}}
+module.exports = {"author":"Shane Brinkman-Davis Delamore, Imikimi LLC","dependencies":{"art-build-configurator":"*","art-class-system":"*","art-config":"*","art-standard-lib":"*","art-suite-clientApp":"git://github.com/imikimi/art-suite-clientApp","art-testbench":"*","bluebird":"^3.5.0","caffeine-script":"*","caffeine-script-runtime":"*","case-sensitive-paths-webpack-plugin":"^2.1.1","chai":"^4.0.1","coffee-loader":"^0.7.3","coffee-script":"^1.12.6","colors":"^1.1.2","commander":"^2.9.0","css-loader":"^0.28.4","dateformat":"^2.0.0","detect-node":"^2.0.3","fs-extra":"^3.0.1","glob":"^7.1.2","glob-promise":"^3.1.0","json-loader":"^0.5.4","mocha":"^3.4.2","neptune-namespaces":"*","script-loader":"^0.7.0","style-loader":"^0.18.1","webpack":"^2.6.1","webpack-dev-server":"^2.4.5","webpack-merge":"^4.1.0","webpack-node-externals":"^1.6.0"},"description":"Vibrance.Meal.Planner","license":"ISC","name":"vibrance-meal-planner","scripts":{"build":"webpack --progress","start":"webpack-dev-server --hot --inline --progress","test":"webpack-dev-server --progress","testInBrowser":"webpack-dev-server --progress"},"version":"0.1.0"}
 
 /***/ }),
 /* 598 */
