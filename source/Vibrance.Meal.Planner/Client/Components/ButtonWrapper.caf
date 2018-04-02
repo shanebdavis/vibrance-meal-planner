@@ -1,0 +1,33 @@
+import &StandardImport
+
+class ButtonWrapper extends PointerActionsMixin Component
+
+  preprocessProps: (props) ->
+    {backgroundColor, hoverColor, actionColor} = props
+    hoverColor      = rgbColor hoverColor       ? VibrancePalette.yellow.withAlpha .5
+    actionColor     = rgbColor actionColor      ? hoverColor.withAlpha 1
+    backgroundColor = rgbColor backgroundColor  ? hoverColor.withAlpha 0
+
+    merge props, {hoverColor, actionColor, backgroundColor}
+
+  render: ->
+    {size, backgroundPadding, backgroundRadius, backgroundColor, hoverColor, actionColor} = @props
+    {buttonSize} = ViewLayout
+
+    Element
+      size:     size ? ww: 1 h: buttonSize
+      cursor:   :pointer
+      on:       @buttonHandlers
+
+      draw:
+        padding:            backgroundPadding ? 2
+        rectangle: radius:  backgroundRadius  ? buttonSize
+        color: switch
+          when @pointerIsDown then actionColor
+          when @hover then hoverColor
+          else backgroundColor
+
+      animators:
+        draw: true
+
+      @props.children

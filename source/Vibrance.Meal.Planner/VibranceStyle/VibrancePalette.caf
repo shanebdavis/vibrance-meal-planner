@@ -1,7 +1,11 @@
-green: #99a91f
-red: #d12602
-yellow: #fee73b
+import &ArtAtomic
 
-primary: #99a91f
-tertiary: #fec960
-secondary: #850101
+object c in
+    green:      #99a91f
+    red:        #d12602
+    yellow:     #fee73b
+
+    primary:    #99a91f
+    tertiary:   #fec960
+    secondary:  #850101
+  rgbColor c

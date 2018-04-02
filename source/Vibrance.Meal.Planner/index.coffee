@@ -4,6 +4,7 @@
 module.exports = require './namespace'
 module.exports
 .addModules
+  SharedLib:      require './SharedLib'     
   StandardImport: require './StandardImport'
 require './Client'
 require './VibranceStyle'

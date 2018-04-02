@@ -1,0 +1,62 @@
+import &StandardImport
+
+class MealPlan extends FluxComponent
+  @subscriptions "mealPlan"
+
+  render: ->
+    log {@mealPlan}
+    {gridSize} = ViewLayout
+    Element
+      childrenLayout:   :column
+
+      &Banner
+        back: @props.home
+        title: "Meal Plan"
+
+      TextElement
+        TextStyles.tinyText
+        size: :childrenSize
+        padding: h: gridSize, top: gridSize / 2
+        text: "meal plan name"
+      Element
+        size: :parentWidthChildrenHeight
+        childrenLayout: :row
+        draw:
+          padding: 5
+          rectangle: radius: 5
+          outline: TextPalette.black.tertiary
+
+        TextInputElement
+          TextStyles.mediumText
+          size: ww:1 h: 50
+          padding: h: 10
+          placeholder: "menu plan name"
+          maxLength: 100
+          value: @mealPlan.name
+          on: valueChanged: (event) ->
+            @models.mealPlan.update @mealPlan.id, name: event.props.value
+        TextElement
+          Icons.pencil
+          align: .5
+          size: ViewLayout.buttonSize
+
+      array recipePlanId, i from log :recipePlanId, @mealPlan.recipePlanIds
+        log {recipePlanId}
+        &RecipePlan {}
+          key: recipePlanId
+          recipePlanId
+
+      Element size: h: 10
+
+      &Button
+        text: "add recipe to this meal plan"
+        action: -> @models.navState.pickRecipeProps = pick:
+          (recipeId) ->
+            @models.mealPlan.addRecipePlan @mealPlan.id, {recipeId, mealPlanId: @mealPlan.id}
+
+      if  @mealPlan?.recipePlanIds?.length > 0
+
+        &Button
+          text: "go to shopping list"
+          action: ->
+            log @models.mealPlan.getShoppingList @mealPlan.id

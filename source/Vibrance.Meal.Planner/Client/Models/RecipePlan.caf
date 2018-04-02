@@ -1,0 +1,12 @@
+import &StandardImport
+
+class RecipePlan extends ApplicationStateDb
+
+  @fields
+    peopleCount:
+      fieldType: :number
+      validate: (v) -> v > 0 && v <= 20
+      default: 1
+
+    mealPlanId: :id
+    recipeId:   :id

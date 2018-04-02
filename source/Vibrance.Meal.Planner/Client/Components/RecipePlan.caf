@@ -1,0 +1,85 @@
+import &StandardImport
+
+class RecipePlan extends FluxComponent
+  @subscriptions "recipe"
+
+  @stateFields
+    showDetails: false
+
+  render: ->
+    {peopleCount} = @props
+
+    if @recipe
+      {ingredients} = @recipe
+      scaler = peopleCount / @recipe.peopleCount
+
+    Element
+      size: :parentWidthChildrenHeight
+      childrenLayout: :column
+      padding:5
+      animators:
+        size: toFrom: ww:1, h:0
+        clip: toFrom: true
+
+      draw:
+        padding: h: ViewLayout.gridSize
+        rectangle: (ps) ->
+          rect 0, ps.y, ps.x, 1
+        fill: TextPalette.black.barely
+
+      @recipe && Element
+        childrenLayout: :row
+        size: :parentWidthChildrenHeight
+
+        &IconButton
+          icon: :triangleRight
+          angle: if @showDetails then Math.PI / 2 else 0
+          action: @toggleShowDetails
+
+        &Selectable
+          text: @recipe.title
+          action: @toggleShowDetails
+
+        TextElement
+          TextStyles.mediumText
+          padding: h: ViewLayout.gridSize
+          size: :parentHeightChildrenWidth
+          text: "#{peopleCount} #{if peopleCount == 1 then 'person' else 'people'}"
+          align: .5
+
+        &IconButton
+          icon: :minus
+          backgroundRadius: 4
+          narrow: true
+          action: -> @models.recipePlan.update @props.id, peopleCount: peopleCount - 1
+
+        &IconButton
+          icon: :plus
+          backgroundRadius: 4
+          narrow: true
+          action: -> @models.recipePlan.update @props.id, peopleCount: peopleCount + 1
+
+        &IconButton
+          icon: :trash
+          action: -> @models.mealPlan.removeRecipePlan @props.mealPlanId, @props.id
+
+      @recipe && @showDetails && Element
+        childrenLayout: :column
+        size: :parentWidthChildrenHeight
+        animators: size: toFrom: ww: 1 h: 0
+        clip: true
+        array {quanitity, unit, type} in ingredients
+          unless unit
+            unit = type
+            type = null
+          &Selectable
+            text:
+              humanNumberWithFractions n = scaler * quanitity
+              + if unit then (" " + if n == 1 then unit else unit + "s") else ""
+              + " #{type}"
+
+class RecipePlanWrapper extends FluxComponent
+  @subscriptions "recipePlan"
+
+  render: ->
+    RecipePlan @recipePlan, @props

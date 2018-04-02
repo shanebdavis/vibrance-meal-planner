@@ -1,0 +1,21 @@
+import &StandardImport
+
+class IconButton extends PointerActionsMixin Component
+
+  render: ->
+    {narrow, icon, color} = @props
+    {buttonSize} = ViewLayout
+
+    &ButtonWrapper
+      backgroundRadius: 10
+      size:     if narrow then h: buttonSize, w: buttonSize *.67 else buttonSize
+      @props
+
+      TextElement
+        if icon is String then Icons[icon] else icon
+        color: color ? TextPalette.black.primary
+        size: :childrenSize
+        location: :centerCenter
+        axis: :centerCenter
+        angle: @props.angle ? 0
+        animators: :angle

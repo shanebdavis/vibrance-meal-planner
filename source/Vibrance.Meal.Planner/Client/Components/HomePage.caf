@@ -1,0 +1,21 @@
+import &StandardImport
+
+class HomePage extends FluxComponent
+  @subscriptions "mealPlan.mealPlan"
+
+  render: ->
+    Element
+      childrenLayout: "column"
+
+      &Banner
+        title: "Vibrance Meal Planner"
+
+      array mealPlan, mealPlanId in @mealPlan
+        &Selectable
+          text: "" #{mealPlan.name} - #{mealPlan.recipePlanIds.length} recipies selected
+          action: -> @models.navState.selectedMealPlanId = mealPlanId
+
+      &Button
+        text: "new meal plan"
+        action: ->
+          @models.mealPlan.create name: "" Meal Plan #{formatDate "mmm dS yyyy"}

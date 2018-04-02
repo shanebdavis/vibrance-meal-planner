@@ -4,6 +4,5 @@
 module.exports = require './namespace'
 module.exports
 .addModules
-  TextPalette:     require './TextPalette'    
-  TextStyles:      require './TextStyles'     
   VibrancePalette: require './VibrancePalette'
+  ViewLayout:      require './ViewLayout'     

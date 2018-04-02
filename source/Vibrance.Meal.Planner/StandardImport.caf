@@ -1,3 +1,5 @@
 &ArtSuite.merge
-  &ArtSuite
+  &ArtMat
   &VibranceStyle
+  &SharedLib
+  &ArtSuite

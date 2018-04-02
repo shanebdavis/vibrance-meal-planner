@@ -1,0 +1,7 @@
+import &StandardImport
+
+class NavState extends ApplicationState
+
+  @stateFields
+    pickRecipeProps: false
+    selectedMealPlanId: null

@@ -1,0 +1,19 @@
+import &ArtStandardLib
+
+multipleStrings =
+  2: ""
+  3: "rd"
+  32: "nd"
+  64: "rth"
+
+humanNumberWithFractions: (n, places = 2) ->
+  if !float32Eq n, round n
+    find multiple in [] 2 3 4 5 6 7 8 9 10 16 32 64
+      if float32Eq n * multiple, round n * multiple
+        out = ""
+        if n > 1
+          out += "#{n | 0} & "
+        out + "#{round (n - (n | 0)) * multiple}/#{multiple}#{multipleStrings[multiple] ? 'th'}"
+    ? n.toFixed places
+  else
+    n

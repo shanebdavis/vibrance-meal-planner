@@ -1,0 +1,22 @@
+import &StandardImport
+
+class Banner extends FluxComponent
+
+  render: ->
+    {title, back} = @props
+
+    Element
+      size: ww:1, h: ViewLayout.buttonSize
+      draw: VibrancePalette.green
+
+      TextElement
+        TextStyles.mediumText
+        fontSize: 32
+        align: .5
+        text: title
+        color: :white
+
+      back && &IconButton
+        icon: "triangleLeft"
+        action: @props.back
+        color: :white

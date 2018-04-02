@@ -1,0 +1,17 @@
+import &StandardImport
+
+class Button extends PointerActionsMixin Component
+
+  render: ->
+    &ButtonWrapper
+      @props
+      backgroundColor: VibrancePalette.yellow.withAlpha .5
+      hoverColor: VibrancePalette.yellow
+      actionColor: VibrancePalette.green
+
+      TextElement
+        TextStyles.mediumText
+        padding: h: ViewLayout.buttonSize / 2
+        color: TextPalette.black.secondary
+        align: :centerLeft
+        text: @props.text

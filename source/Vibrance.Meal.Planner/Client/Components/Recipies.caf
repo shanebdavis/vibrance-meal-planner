@@ -1,0 +1,25 @@
+import &StandardImport
+
+class Recipies extends FluxComponent
+  @subscriptions
+    recipes:
+      model:  :recipe
+      key:    :recipe
+
+  render: ->
+    Element
+      childrenLayout: "column"
+
+      &Banner
+        title: "" Pick Recipe
+        back: @props.back
+
+      array recipe in @recipes
+        &Button
+          text: "" #{recipe.title} - #{recipe.peopleCount}
+          action: ->
+            log 1
+            @props.pick? recipe.id
+            log 2
+            @models.navState.clearPickRecipeProps()
+            log 3

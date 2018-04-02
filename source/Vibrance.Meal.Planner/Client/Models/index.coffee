@@ -4,5 +4,7 @@
 module.exports = require './namespace'
 module.exports
 .addModules
-  MealPlan: require './MealPlan'
-  Recipe:   require './Recipe'  
+  MealPlan:   require './MealPlan'  
+  NavState:   require './NavState'  
+  Recipe:     require './Recipe'    
+  RecipePlan: require './RecipePlan'

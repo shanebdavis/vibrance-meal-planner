@@ -1,7 +1,0 @@
-import &ArtSuite, &TextPalette
-
-class TextStyles extends HotStyleProps
-  @mediumText:
-    fontFamily: "" "Open Sans", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif
-    fontSize: 16
-    color: black.primary

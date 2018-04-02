@@ -1,0 +1,20 @@
+import &StandardImport
+
+class App extends FluxComponent
+
+  @subscriptions :navState.navState
+
+  render: ->
+    {selectedMealPlanId, pickRecipeProps} = @navState
+
+    Element
+      draw: :white
+      switch
+      when pickRecipeProps
+        &Recipies pickRecipeProps
+      when selectedMealPlanId
+        &MealPlan
+          mealPlanId: selectedMealPlanId
+          home: @models.navState.clearSelectedMealPlanId
+      else
+        &HomePage {@setSelectedMealPlanId}

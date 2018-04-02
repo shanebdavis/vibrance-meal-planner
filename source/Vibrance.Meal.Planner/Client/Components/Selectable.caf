@@ -1,0 +1,15 @@
+import &StandardImport
+
+class Selectable extends PointerActionsMixin Component
+
+  render: ->
+    &ButtonWrapper
+      @props
+      backgroundRadius: 4
+
+      TextElement
+        TextStyles.mediumText
+        padding: h: ViewLayout.buttonSize / 2
+        color: TextPalette.black.primary
+        align: :centerLeft
+        text: @props.text

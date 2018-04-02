@@ -4,14 +4,22 @@ class Recipe extends ApplicationState
 
   @stateFields
     vibrance1:
+      id: :vibrance1
       title: "" All Hail Kale
-      peopleCount: 3
+      peopleCount: 10
       ingredients:
         {} quanitity: 1 unit: :clove type: :garlic
-        {} quanitity: 1 unit: :bag type: :kale
-        {} quanitity: 2 type: :tomatoes
+        {} quanitity: 2 unit: :bag type: :kale
+        {} quanitity: 3 type: :tomato
+        {} quanitity: 4 type: :carot
+        {} quanitity: 5 type: :shallot
+        {} quanitity: 6 type: :almond
+        {} quanitity: 7 type: :pickle
+        {} quanitity: 8 type: :raisen
+        {} quanitity: 9 type: "sunflower seed"
 
     vibrance2:
+      id: :vibrance2
       title: "" Rock Hard Pancakes
       peopleCount: 5
       ingredients:
