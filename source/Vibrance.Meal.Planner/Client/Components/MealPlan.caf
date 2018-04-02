@@ -59,4 +59,6 @@ class MealPlan extends FluxComponent
         &Button
           text: "go to shopping list"
           action: ->
-            log @models.mealPlan.getShoppingList @mealPlan.id
+            @models.navState.shoppingList = {}
+              @mealPlan
+              shoppingList: @models.mealPlan.getShoppingList @mealPlan.id

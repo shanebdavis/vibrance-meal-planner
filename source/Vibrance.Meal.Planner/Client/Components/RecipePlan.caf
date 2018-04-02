@@ -7,11 +7,11 @@ class RecipePlan extends FluxComponent
     showDetails: false
 
   render: ->
-    {peopleCount} = @props
+    {servings} = @props
 
     if @recipe
       {ingredients} = @recipe
-      scaler = peopleCount / @recipe.peopleCount
+      scaler = servings / @recipe.servings
 
     Element
       size: :parentWidthChildrenHeight
@@ -44,20 +44,20 @@ class RecipePlan extends FluxComponent
           TextStyles.mediumText
           padding: h: ViewLayout.gridSize
           size: :parentHeightChildrenWidth
-          text: "#{peopleCount} #{if peopleCount == 1 then 'person' else 'people'}"
+          text: pluralize servings, "serving"
           align: .5
 
         &IconButton
           icon: :minus
           backgroundRadius: 4
           narrow: true
-          action: -> @models.recipePlan.update @props.id, peopleCount: peopleCount - 1
+          action: -> @models.recipePlan.update @props.id, servings: servings - 1
 
         &IconButton
           icon: :plus
           backgroundRadius: 4
           narrow: true
-          action: -> @models.recipePlan.update @props.id, peopleCount: peopleCount + 1
+          action: -> @models.recipePlan.update @props.id, servings: servings + 1
 
         &IconButton
           icon: :trash
@@ -68,15 +68,8 @@ class RecipePlan extends FluxComponent
         size: :parentWidthChildrenHeight
         animators: size: toFrom: ww: 1 h: 0
         clip: true
-        array {quanitity, unit, type} in ingredients
-          unless unit
-            unit = type
-            type = null
-          &Selectable
-            text:
-              humanNumberWithFractions n = scaler * quanitity
-              + if unit then (" " + if n == 1 then unit else unit + "s") else ""
-              + " #{type}"
+        array ingredient in ingredients
+          &Ingredient ingredient, {scaler}
 
 class RecipePlanWrapper extends FluxComponent
   @subscriptions "recipePlan"

@@ -3,13 +3,23 @@ import &StandardImport
 class Selectable extends PointerActionsMixin Component
 
   render: ->
+    {icon, text} = @props
     &ButtonWrapper
       @props
       backgroundRadius: 4
 
-      TextElement
-        TextStyles.mediumText
+      Element
+        childrenLayout: :row
         padding: h: ViewLayout.buttonSize / 2
-        color: TextPalette.black.primary
-        align: :centerLeft
-        text: @props.text
+
+        icon && TextElement
+          if icon is String then Icons[icon] else icon
+          size: ViewLayout.buttonSize
+          align: :centerCenter
+          color: TextPalette.black.primary
+
+        TextElement
+          TextStyles.mediumText
+          color: TextPalette.black.primary
+          align: :centerLeft
+          text: @props.text

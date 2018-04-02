@@ -16,7 +16,7 @@ class Recipies extends FluxComponent
 
       array recipe in @recipes
         &Button
-          text: "" #{recipe.title} - #{recipe.peopleCount}
+          text: "" #{recipe.title} - #{pluralize recipe.servings, :serving}
           action: ->
             log 1
             @props.pick? recipe.id

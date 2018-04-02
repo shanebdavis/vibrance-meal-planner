@@ -1,27 +1,44 @@
 import &StandardImport
 
+primaryRecipeSheet = :https://docs.google.com/spreadsheets/d/12rlN1qcoecvhz7-JoGRwrNs9EGytO367RhzYAF4Drr0
+csvUrl = (googleSheet) ->
+  urlJoin
+    primaryRecipeSheet
+    :gviz/tq?tqx=out:csv
+
+depluralize = (noun) ->
+  if found = noun.match /^(.*)s$/
+    found[1]
+  else
+    noun
+
 class Recipe extends ApplicationState
 
-  @stateFields
-    vibrance1:
-      id: :vibrance1
-      title: "" All Hail Kale
-      peopleCount: 10
-      ingredients:
-        {} quanitity: 1 unit: :clove type: :garlic
-        {} quanitity: 2 unit: :bag type: :kale
-        {} quanitity: 3 type: :tomato
-        {} quanitity: 4 type: :carot
-        {} quanitity: 5 type: :shallot
-        {} quanitity: 6 type: :almond
-        {} quanitity: 7 type: :pickle
-        {} quanitity: 8 type: :raisen
-        {} quanitity: 9 type: "sunflower seed"
+  constructor: ->
+    super
+    @onNextReady -> @loadRecipes()
 
-    vibrance2:
-      id: :vibrance2
-      title: "" Rock Hard Pancakes
-      peopleCount: 5
-      ingredients:
-        {} quanitity: 1 unit: :lb type: :rocks
-        {} quanitity: 1 unit: :squeeze type: :charmin
+  loadRecipes: ->
+    &csv.fetch url: csvUrl primaryRecipeSheet
+    .then ({records}) ->
+      ingredients = []
+      each [title, quanitity, unit, type] in records
+        if title
+          id = lowerCamelCase title
+          @state[id] = {}
+            id
+            title
+            servings: quanitity - 0
+            ingredients: ingredients = []
+
+        else if quanitity
+          if found = quanitity.match /(\d+) *\/ *(\d+)/
+            [__, n, d] = found
+            quanitity = (n - 0) / (d - 0)
+
+          ingredients.push {}
+            quanitity: quanitity - 0
+            unit: depluralize unit.trim()
+            type: depluralize type.trim()
+    .then ->
+      log Recipes: @state

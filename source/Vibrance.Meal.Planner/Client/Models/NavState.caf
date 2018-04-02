@@ -5,3 +5,4 @@ class NavState extends ApplicationState
   @stateFields
     pickRecipeProps: false
     selectedMealPlanId: null
+    shoppingList: null

@@ -3,7 +3,7 @@ import &StandardImport
 class RecipePlan extends ApplicationStateDb
 
   @fields
-    peopleCount:
+    servings:
       fieldType: :number
       validate: (v) -> v > 0 && v <= 20
       default: 1

@@ -5,11 +5,13 @@ class App extends FluxComponent
   @subscriptions :navState.navState
 
   render: ->
-    {selectedMealPlanId, pickRecipeProps} = @navState
+    {selectedMealPlanId, pickRecipeProps, shoppingList} = @navState
 
     Element
       draw: :white
       switch
+      when shoppingList
+        &ShoppingList shoppingList
       when pickRecipeProps
         &Recipies pickRecipeProps
       when selectedMealPlanId

@@ -13,20 +13,22 @@ class MealPlan extends ApplicationStateDb
       {recipePlanIds} = mealPlan
       shoppingList = {}
       recipePlans = each recipePlanId in recipePlanIds when recipePlan = @models.recipePlan.state[recipePlanId]
-        {peopleCount} = recipePlan
+        {servings} = recipePlan
         if recipe = @models.recipe.state[recipePlan.recipeId]
-          scaleFactor = peopleCount / recipe.peopleCount
+          scaleFactor = servings / recipe.servings
           {ingredients} = recipe
           each {quanitity, unit, type} in ingredients
             key = "#{unit} #{type}"
+            quanitity *= scaleFactor
             if shoppingList[key]
               shoppingList[key].quanitity += quanitity
             else
-              shoppingList[key] = {quanitity, unit, type}
+              shoppingList[key] = merge {quanitity, unit, type}
       shoppingList
 
   addRecipePlan: (mealPlanId, recipePlanProps) ->
-    @models.recipePlan.create recipePlanProps
+    {servings} = @models.recipe.state[recipePlanProps.recipeId]
+    @models.recipePlan.create merge recipePlanProps, {servings}
     .then (recipePlan) ->
       @update mealPlanId,
         recipePlanIds: compactFlatten [] @state[mealPlanId].recipePlanIds, recipePlan.id

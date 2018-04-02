@@ -19,3 +19,5 @@ class HomePage extends FluxComponent
         text: "new meal plan"
         action: ->
           @models.mealPlan.create name: "" Meal Plan #{formatDate "mmm dS yyyy"}
+          .then (mealPlan) ->
+            @models.navState.selectedMealPlanId = mealPlan.id

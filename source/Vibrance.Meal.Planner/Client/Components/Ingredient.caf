@@ -1,0 +1,26 @@
+import &StandardImport
+
+class Ingredient extends FluxComponent
+
+  @stateField
+    checked: false
+
+  render: ->
+    {quanitity, unit, type, scaler = 1} = @props
+    unless unit
+      unit = type
+      type = null
+
+    &Selectable
+      icon:
+        if @checked
+          :checkboxChecked
+        else
+          :checkboxUnchecked
+
+      text:
+        humanNumberWithFractions n = scaler * quanitity
+        + if unit then (" " + if n == 1 then unit else unit + "s") else ""
+        + " #{type}"
+
+      action: @toggleChecked

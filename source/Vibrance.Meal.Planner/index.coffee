@@ -4,6 +4,7 @@
 module.exports = require './namespace'
 module.exports
 .addModules
+  Csv:            require './csv'           
   SharedLib:      require './SharedLib'     
   StandardImport: require './StandardImport'
 require './Client'

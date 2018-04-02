@@ -1,0 +1,15 @@
+import &StandardImport
+
+class ShoppingList extends FluxComponent
+
+  render: ->
+    {shoppingList} = @props
+    Element
+      childrenLayout: "column"
+
+      &Banner
+        title: "Shopping List"
+        back: @models.navState.clearShoppingList
+
+      array ingredient in shoppingList
+        &Ingredient ingredient
