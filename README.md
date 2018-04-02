@@ -1,6 +1,6 @@
 # Vibrance.Meal.Planner
 
-> Initialized by Art.Build.Configurator
+Try Here: https://shanebdavis.github.io/vibrance-meal-planner/
 
 ### Install
 
