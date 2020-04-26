@@ -8,21 +8,18 @@ class Selectable extends PointerActionsMixin Component
       @props
       backgroundRadius: 4
       size: ww:1, h: (ps, cs) -> max ViewLayout.buttonSize, cs.y
-      childrenLayout: "row"
-      childrenAlignment: "centerLeft"
+      :row :childrenCenterLeft
 
       icon && TextElement
         if icon is String then Icons[icon] else icon
+        :textCenterCenter
         size: ViewLayout.buttonSize
-        align: :centerCenter
         color: TextPalette.black.primary
 
       TextElement
         TextStyles.mediumText
-        padding:
-          v: ViewLayout.gridSize
+        :childrenSizeMaxParentWidth :textCenterLeft
+        padding: v: ViewLayout.gridSize
         color: TextPalette.black.primary
-        size: :childrenSizeMaxParentWidth
         maxLines: 3
-        align: :centerLeft
         text: @props.text

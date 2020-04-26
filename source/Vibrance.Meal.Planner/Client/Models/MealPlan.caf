@@ -34,12 +34,9 @@ class MealPlan extends ApplicationStateDb
         recipePlanIds: compactFlatten [] @state[mealPlanId].recipePlanIds, recipePlan.id
 
   removeRecipePlan: (mealPlanId, recipePlanId) ->
-    log removeRecipePlan1: {mealPlanId, recipePlanId}
     if mealPlan = @state[mealPlanId]
-      log removeRecipePlan2: {mealPlan}
       {recipePlanIds} = mealPlan
       if 0 <= index = recipePlanIds.indexOf recipePlanId
-        log removeRecipePlan3: {index}
         @models.recipePlan.delete recipePlanId
         .then ->
           @update mealPlanId, recipePlanIds: arrayWithout recipePlanIds, index

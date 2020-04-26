@@ -5,7 +5,7 @@ class HomePage extends FluxComponent
 
   render: ->
     Element
-      childrenLayout: "column"
+      :column
 
       &Banner
         title: "Vibrance Meal Planner v#{&package.version}"

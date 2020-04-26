@@ -1,26 +1,26 @@
 import &StandardImport
 
 class MealPlan extends FluxComponent
-  @subscriptions "mealPlan"
+  @subscriptions :mealPlan
 
   render: ->
-    log {@mealPlan}
     {gridSize} = ViewLayout
     Element
-      childrenLayout:   :column
+      childrenLayout: :column
 
       &Banner
-        back: @props.home
-        title: "Meal Plan"
+        back:     @props.home
+        title:    "" Meal Plan
 
       TextElement
         TextStyles.tinyText
-        size: :childrenSize
-        padding: h: gridSize, top: gridSize / 2
-        text: "meal plan name"
+        :childrenSize
+        padding:  h: gridSize, top: gridSize / 2
+        text:     "" meal plan name
+
       Element
-        size: :parentWidthChildrenHeight
-        childrenLayout: :row
+        :parentWidthChildrenHeight
+        :row
         draw:
           padding: 5
           rectangle: radius: 5
@@ -28,11 +28,11 @@ class MealPlan extends FluxComponent
 
         TextInputElement
           TextStyles.mediumText
-          size: ww:1 h: 50
-          padding: h: 10
-          placeholder: "menu plan name"
-          maxLength: 100
-          value: @mealPlan.name
+          size:         ww:1 h: 50
+          padding:      h: 10
+          placeholder:  "" menu plan name
+          maxLength:    100
+          value:        @mealPlan.name
           on: valueChanged: (event) ->
             @models.mealPlan.update @mealPlan.id, name: event.props.value
         TextElement
@@ -40,8 +40,7 @@ class MealPlan extends FluxComponent
           align: .5
           size: ViewLayout.buttonSize
 
-      array recipePlanId, i from log :recipePlanId, @mealPlan.recipePlanIds
-        log {recipePlanId}
+      array recipePlanId, i from @mealPlan.recipePlanIds
         &RecipePlan {}
           key: recipePlanId
           recipePlanId

@@ -15,8 +15,8 @@ class ButtonWrapper extends PointerActionsMixin Component
     {buttonSize} = ViewLayout
 
     Element
+      :pointerCursor
       size:     ww: 1 h: buttonSize
-      cursor:   :pointer
       on:       @buttonHandlers
 
       draw:
@@ -30,5 +30,5 @@ class ButtonWrapper extends PointerActionsMixin Component
       animators:
         draw: true
 
-      objectWithout @props, "children"
+      objectWithout @props, :children
       @props.children

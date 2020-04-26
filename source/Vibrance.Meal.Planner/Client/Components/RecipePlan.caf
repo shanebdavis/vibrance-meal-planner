@@ -1,7 +1,7 @@
 import &StandardImport
 
 class RecipePlan extends FluxComponent
-  @subscriptions "recipe"
+  @subscriptions :recipe
 
   @stateFields
     showDetails: false
@@ -14,8 +14,7 @@ class RecipePlan extends FluxComponent
       scaler = servings / @recipe.servings
 
     Element
-      size: :parentWidthChildrenHeight
-      childrenLayout: :column
+      :column :parentWidthChildrenHeight
       padding:5
       animators:
         size: toFrom: ww:1, h:0
@@ -28,9 +27,7 @@ class RecipePlan extends FluxComponent
         fill: TextPalette.black.barely
 
       @recipe && Element
-        childrenLayout: :row
-        childrenAlignment: :centerLeft
-        size: :parentWidthChildrenHeight
+        :row :childrenCenterLeft :parentWidthChildrenHeight
 
         &IconButton
           icon: :triangleRight
@@ -43,10 +40,10 @@ class RecipePlan extends FluxComponent
 
         TextElement
           TextStyles.mediumText
+          :parentHeightChildrenWidth
+          :textCenterCenter
           padding: h: ViewLayout.gridSize
-          size: :parentHeightChildrenWidth
           text: servings # pluralize servings, "serving"
-          align: .5
 
         &IconButton
           icon: :minus
@@ -65,8 +62,7 @@ class RecipePlan extends FluxComponent
           action: -> @models.mealPlan.removeRecipePlan @props.mealPlanId, @props.id
 
       @recipe && @showDetails && Element
-        childrenLayout: :column
-        size: :parentWidthChildrenHeight
+        :column :parentWidthChildrenHeight
         animators: size: toFrom: ww: 1 h: 0
         clip: true
         array ingredient in ingredients

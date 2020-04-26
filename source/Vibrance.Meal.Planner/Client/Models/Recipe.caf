@@ -28,8 +28,8 @@ class Recipe extends ApplicationState
           @state[id] = {}
             id
             title
-            servings: quanitity - 0
-            ingredients: ingredients = []
+            servings:     quanitity - 0
+            ingredients:  ingredients = []
 
         else if quanitity
           if found = quanitity.match /(\d+) *\/ *(\d+)/
@@ -37,8 +37,6 @@ class Recipe extends ApplicationState
             quanitity = (n - 0) / (d - 0)
 
           ingredients.push {}
-            quanitity: quanitity - 0
-            unit: depluralize unit.trim()
-            type: depluralize type.trim()
-    .then ->
-      log Recipes: @state
+            quanitity:  quanitity - 0
+            unit:       depluralize unit.trim()
+            type:       depluralize type.trim()

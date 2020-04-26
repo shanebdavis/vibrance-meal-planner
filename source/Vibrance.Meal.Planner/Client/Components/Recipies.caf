@@ -8,7 +8,7 @@ class Recipies extends FluxComponent
 
   render: ->
     Element
-      childrenLayout: "column"
+      :column
 
       &Banner
         title: "" Pick Recipe

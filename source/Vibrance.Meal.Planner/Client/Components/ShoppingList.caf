@@ -5,7 +5,7 @@ class ShoppingList extends FluxComponent
   render: ->
     {shoppingList} = @props
     Element
-      childrenLayout: "column"
+      :column
 
       &Banner
         title: "Shopping List"
